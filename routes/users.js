@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const User = require('../models/user');
+const Part = require('../models/part');
 
 // Register
 router.post('/register', (req, res, next) => {
@@ -19,6 +20,24 @@ router.post('/register', (req, res, next) => {
             res.json({success: false, msg:'Failed to register user'});
         } else {
             res.json({success: true, msg: 'User Registered'});
+        }
+    });
+});
+
+// Creating a Part
+router.post('/dashboard', (req, res, next) => {
+    let newPart = new Part({
+        vehicle: req.body.vehicle,
+        partDescription: req.body.partDescription,
+        forTrade: req.body.forTrade,
+        forSale: req.body.forSale
+    });
+
+    Part.addPart(newPart, (err, part) => {
+        if(err) {
+            res.json({success: false, msg:'Failed to create new part'});
+        } else {
+            res.json({success: true, msg: 'Part created'});
         }
     });
 });
@@ -42,7 +61,7 @@ router.post('/authenticate', (req, res, next) => {
                 });
 
                 res.json({
-                    succeess: true,
+                    success: true,
                     token: 'JWT '+token,
                     user: {
                         id: user._id,

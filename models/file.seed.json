@@ -1,0 +1,14 @@
+[
+    {
+        "vehicle":"1995 GMC Jimmy",
+        "partDescription":"motor",
+        "forTrade":true,
+        "forSale":"1000"
+    },
+    {
+        "vehicle":"2001 Chevy Tahoe",
+        "partDescription":"windsheild",
+        "forTrade": false,
+        "forSale":"50"
+    }
+]

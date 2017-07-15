@@ -22,6 +22,7 @@ mongoose.connection.on('error', (err) => {
 const app = express();
 
 const users = require('./routes/users');
+const parts = require('./routes/parts');
 
 // Port Assignment
 const port = 3000;
@@ -48,9 +49,10 @@ app.get('/', (req, res) => {
     res.send('Invalid Endpoint');
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
-});
+// THIS SECTION TO BE ACTIVATED AFTER NG BUILD, NG BUILD 
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, 'public/index.html'));
+// });
 
 // Start Server
 app.listen(port, () => {
