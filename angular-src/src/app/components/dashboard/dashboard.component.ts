@@ -9,10 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  vehicle: String;
-  partDescription: String;
-  forTrade: Boolean;
-  forSale: Number;
+  parts: any[];
 
   constructor(
     private flashMessage:FlashMessagesService,
@@ -20,8 +17,19 @@ export class DashboardComponent implements OnInit {
     private router: Router
     ) { }
 
+
   ngOnInit() {
+    this.authService.getParts().subscribe(dashboard => {
+      console.log(dashboard);
+      this.parts = dashboard.parts;
+    })
+  
   }
+
+  vehicle: String;
+  partDescription: String;
+  forTrade: Boolean;
+  forSale: Number
 
   onPartSubmit(){
     const part = {

@@ -39,7 +39,14 @@ export class AuthService {
     headers.append('Content-Type', 'application/json');
     return this.http.get('http://localhost:3000/users/profile', {headers: headers})
       .map(res => res.json());
-  } 
+  }
+
+  getParts(){
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:3000/users/dashboard', {headers: headers})
+      .map(res => res.json());
+  }
 
   storeUserData(token, user){
     localStorage.setItem('id_token', token);

@@ -6,7 +6,7 @@ const config = require('../config/database');
 const User = require('../models/user');
 const Part = require('../models/part');
 
-// Register
+// Register New User
 router.post('/register', (req, res, next) => {
     let newUser = new User({
         name: req.body.name,
@@ -42,7 +42,25 @@ router.post('/dashboard', (req, res, next) => {
     });
 });
 
-// Authenticate
+// Editing Part 
+router.put('/dashboard/:id', function(req, res){
+    let id = req.params.id;
+    let part = req.body;
+    console.log(id);
+    
+    if(part && part._id !== id) {
+        return res.status(500).json({err: "Ids don't match!"})
+    }
+
+    Part.findByIdAndUpdate(id, part, {new: true}, function(err, part){
+        if(err) {
+            return res.status(500).json({err: err.message});
+        }
+        res.json({'part': part, message: 'Part updated!'});
+    })
+});
+
+// Authenticate User
 router.post('/authenticate', (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -78,9 +96,22 @@ router.post('/authenticate', (req, res, next) => {
 });
 
 
-// Profile
+// Get Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     res.json({user: req.user});
 });
+
+// Get Parts
+router.get('/dashboard', function(req, res) {
+    Part.find({}, function(err, parts) {
+        if(err) {
+            return res.status(500).json({message: err.message});
+        }
+        res.json({parts: parts});
+        const myParts = parts;
+        
+    });
+});
+
 
 module.exports = router;
