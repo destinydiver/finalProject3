@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
+import { NgFor } from "@angular/common/src/directives";
 
 @Component({
   selector: 'app-dashboard',
@@ -10,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   parts: any[];
+  partId: any;
+  btnId: any;
 
   constructor(
     private flashMessage:FlashMessagesService,
@@ -23,8 +26,10 @@ export class DashboardComponent implements OnInit {
       console.log(dashboard);
       this.parts = dashboard.parts;
     })
-  
+
   }
+  
+  
 
   vehicle: String;
   partDescription: String;
