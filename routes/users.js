@@ -60,6 +60,25 @@ router.put('/dashboard/:id', function(req, res){
     })
 });
 
+// Deleting a Part
+router.delete('/dashboard/:id', function(req, res){
+    let id = req.params.id;
+    let part = req.body;
+
+    if(err) { 
+        return res.status(500).json({err: err.message});
+    }
+    Part.findOneAndRemove(id, function(err, part){
+        if(err) {
+            return res.status(500).json({err: err.message});           
+        }
+        res.json({'part': part, message: 'Part deleted!'});
+        res.this.router.navigate(['dashboard']);
+    })
+        
+});
+
+
 // Authenticate User
 router.post('/authenticate', (req, res, next) => {
     const username = req.body.username;

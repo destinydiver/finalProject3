@@ -11,12 +11,15 @@
   <li *ngFor="let part of parts">
     <span class="badge">{{part.vehicle}}  </span>  {{part.partDescription}}, {{part.forTrade}}, Price: ${{part.forSale}}, {{part._id}}
     <span class="pull-right">
-      <button type="button" class="btn btn-xs btn-default">Edit</button>
-      <button type="button" class="btn btn-xs btn-default">Del</button>
+      <button id="editBtn" type="button" class="btn btn-xs btn-default">Edit</button>
+      <button type="button" class="btn btn-xs btn-default" (click)="functionToCall(part)">Del</button>
     </span>
   </li>
 </ul>
-<div id="container" class="panel">
+
+<button type="button" class="btn btn-primary" (click)="changeShowStatus()">Add or edit a part</button>
+
+<div [hidden]="showHide">
   <h3>Add a part</h3>
   <form (submit)="onPartSubmit()">
     <div class="form-group">
@@ -41,28 +44,7 @@
 
 
 
-<div id="container" class="panel hidden">
-  <h3>Edit your part</h3>
-  <form (submit)="onClickEdit()">
-    <div class="form-group">
-      <label>Vehicle</label>
-      <input type="text" [(ngModel)]="vehicle" name="vehicle" class="form-control">
-    </div>
-    <div class="form-group">
-      <label>Part Description</label>
-      <input type="text" [(ngModel)]="partDescription" name="partDescription" class="form-control">
-    </div>
-    <div class="form-group">
-      <label>Cash Sale Price  $</label>
-      <input type="number" [(ngModel)]="forSale" name="forSale" class="form-control">
-    </div>
-    <div class="form-group">
-      <label>For Trade</label>
-      <input type="checkbox" [(ngModel)]="forTrade" name="forTrade" class="form-control" >
-    </div>
-    <input type="submit" class="btn btn-primary" value="Submit">
-  </form> 
-</div>
+
 
 
 

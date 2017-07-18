@@ -9,10 +9,12 @@ import { NgFor } from "@angular/common/src/directives";
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
+
 export class DashboardComponent implements OnInit {
   parts: any[];
-  partId: any;
-  btnId: any;
+  part: any;
+  showHide: boolean;
 
   constructor(
     private flashMessage:FlashMessagesService,
@@ -56,4 +58,27 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  functionToCall(part: any){
+    console.log(part);
+    
+
+  
+ 
+    
+  };
+
+  changeShowStatus(){
+    this.showHide = !this.showHide;
+  };
+
+  setFormData(data){
+    data = data || {};
+    
+    const part = {
+
+    }
+  }
+  
 }
+
