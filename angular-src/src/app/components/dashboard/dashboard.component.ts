@@ -15,6 +15,11 @@ export class DashboardComponent implements OnInit {
   parts: any[];
   part: any;
   showHide: boolean;
+  partToEditId: any;
+  vehicleToEdit: string;
+  partDescriptionToEdit: string;
+  forSaleToEdit: string;
+  forTradeToEdit: string;
 
   constructor(
     private flashMessage:FlashMessagesService,
@@ -40,30 +45,46 @@ export class DashboardComponent implements OnInit {
 
   onPartSubmit(){
     const part = {
-      vehicle: this.vehicle,
-      partDescription: this.partDescription,
-      forTrade: this.forTrade,
-      forSale: this.forSale
+      vehicle: this.vehicleToEdit,
+      partDescription: this.partDescriptionToEdit,
+      forTrade: this.forTradeToEdit,
+      forSale: this.forSaleToEdit
     }
 
+    // onPartSubmit(){
+    // const part = {
+    //   vehicle: this.vehicle,
+    //   partDescription: this.partDescription,
+    //   forTrade: this.forTrade,
+    //   forSale: this.forSale
+    // }
+
+    console.log('here is the part id to update: ', this.partToEditId);
+
   // Register Part
-    this.authService.registerPart(part).subscribe(data => {
-      console.log(data);
-      if(data.success){
-        this.flashMessage.show('Your part has been listed!', {cssClass: 'alert-success', timeout: 3000});
-        this.router.navigate(['/dashboard']);
-      } else {
-        this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-        this.router.navigate(['/dashboard']);
-      }
-    });
+    // this.authService.registerPart(part).subscribe(data => {
+    //   console.log(data);
+    //   if(data.success){
+    //     this.flashMessage.show('Your part has been listed!', {cssClass: 'alert-success', timeout: 3000});
+    //     this.router.navigate(['/dashboard']);
+    //   } else {
+    //     this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
+    //     this.router.navigate(['/dashboard']);
+    //   }
+    // });
   }
 
-  functionToCall(part: any){
+  partEdit(part: any){
     console.log(part);
-    
 
-  
+    this.partToEditId = part._id;
+    this.vehicleToEdit = part.vehicle;
+    this.partDescriptionToEdit = part.partDescription;
+    this.forSaleToEdit = part.forSale;
+    this.forTradeToEdit = part.forTrade;
+
+    this.showHide = false;
+    
  
     
   };
