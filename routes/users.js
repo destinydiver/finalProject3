@@ -47,10 +47,12 @@ router.put('/dashboard/:id', function(req, res){
     let id = req.params.id;
     let part = req.body;
     console.log(id);
+    console.log(part);
     
     if(part && part._id !== id) {
         return res.status(500).json({err: "Ids don't match!"})
     }
+    
 
     Part.findByIdAndUpdate(id, part, {new: true}, function(err, part){
         if(err) {

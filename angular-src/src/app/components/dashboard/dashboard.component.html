@@ -17,10 +17,10 @@
   </li>
 </ul>
 
+  <!--ADD NEW PART DIV  -->
 <button type="button" class="btn btn-primary" (click)="changeShowStatus()">Add a part</button>
-
 <div [hidden]="showHide">
-  <h3>Edit your part</h3>
+  <h3>Add your part</h3>
   <form (submit)="onPartSubmit()">
     <div class="form-group">
       <label>Vehicle</label>
@@ -43,29 +43,29 @@
 </div>
 
 
-
-<!--<div [hidden]="showHide">
-  <h3>Add a part</h3>
-  <form (submit)="onPartSubmit()">
+ <!--EDIT YOUR PART DIV  -->
+<div [hidden]="showEdit">
+  <h3>Edit Your Part</h3>
+  <form (submit)="onPartEdit()">
     <div class="form-group">
       <label>Vehicle</label>
-      <input type="text" [(ngModel)]="vehicle" name="vehicle" class="form-control">
+      <input type="text" [(ngModel)]="vehicleToEdit" name="vehicle" class="form-control">
     </div>
     <div class="form-group">
       <label>Part Description</label>
-      <input type="text" [(ngModel)]="partDescription" name="partDescription" class="form-control">
+      <input type="text" [(ngModel)]="partDescriptionToEdit" name="partDescription" class="form-control">
     </div>
     <div class="form-group">
       <label>Cash Sale Price  $</label>
-      <input type="number" [(ngModel)]="forSale" name="forSale" class="form-control">
+      <input type="number" [(ngModel)]="forSaleToEdit" name="forSale" class="form-control">
     </div>
     <div class="form-group">
       <label>For Trade</label>
-      <input type="checkbox" [(ngModel)]="forTrade" name="forTrade" class="form-control" >
+      <input type="checkbox" [(ngModel)]="forTradeToEdit" name="forTrade" class="form-control" >
     </div>
     <input type="submit" class="btn btn-primary" value="Submit">
   </form> 
-</div>-->
+</div> 
 
 
 
