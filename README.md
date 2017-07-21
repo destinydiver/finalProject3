@@ -23,5 +23,9 @@ To run you need to have up to date versions installed of:
 
 7. In browser go to "localhost:4200" for API.  
 
+8. Create a profile by registering.
+
+9. Log into your profile, login will last for 1 hour.
+
 Thanks and enjoy!
 
