@@ -45,6 +45,8 @@ export class DashboardComponent implements OnInit {
     })
   }
   
+
+  // HIDE OR SHOW ELEMENTS
   changeShowStatus(){
     this.showHide = !this.showHide;
   }
@@ -82,6 +84,9 @@ export class DashboardComponent implements OnInit {
     location.reload();
   }
 
+
+  // EDIT A PART
+
   // Capture of part information at "EDIT" button
   partEdit(part: any){
     this.vehicleToEdit = part.vehicle;
@@ -115,6 +120,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
+// DELETE A PART
   partDelete(part: any){
     this.idToDelete = part._id;
     this.vehicleToDelete = part.vehicle;
