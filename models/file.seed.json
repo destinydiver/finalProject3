@@ -10,5 +10,17 @@
         "partDescription":"windsheild",
         "forTrade": false,
         "forSale":"50"
+    },
+    {
+        "vehicle":"1978 Pontiac Firebird TransAm",
+        "partDescription":"Monster Motor",
+        "forTrade": false,
+        "forSale": 2500
+    },
+    {
+        "vehicle":"2017 Tesla Model 3",
+        "partDescription":"In-Dash Computer",
+        "forTrade": false,
+        "forSale": 2000
     }
 ]
