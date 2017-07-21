@@ -14,14 +14,21 @@ import { NgFor } from "@angular/common/src/directives";
 export class DashboardComponent implements OnInit {
   parts: any[];
   part: any;
-  showHide: boolean;
-  showEdit: boolean;
+  showHide: boolean = false;
+  showEdit: boolean = false;
+  showDeleteConfirmation: boolean = false;
   partToEditId: any;
   vehicleToEdit: string;
   partDescriptionToEdit: string;
   forSaleToEdit: string;
   forTradeToEdit: string;
   upDatedPart: any;
+  partToDelete: string;
+  idToDelete: any;
+  vehicleToDelete: string;
+  partDescriptionToDelete: string;
+  forTradeToDelete: string;
+  forSaleToDelete: string;
 
   constructor(
     private flashMessage:FlashMessagesService,
@@ -34,11 +41,21 @@ export class DashboardComponent implements OnInit {
     this.authService.getParts().subscribe(dashboard => {
       console.log(dashboard);
       this.parts = dashboard.parts;
+      
     })
-
   }
   
-  
+  changeShowStatus(){
+    this.showHide = !this.showHide;
+  }
+
+  showEditForm(){
+    this.showEdit = !this.showEdit;
+  };
+
+  deleteConfirm(){
+    this.showDeleteConfirmation = !this.showDeleteConfirmation;
+  };
 
   vehicle: String;
   partDescription: String;
@@ -53,33 +70,27 @@ export class DashboardComponent implements OnInit {
       forSale: this.forSale
     }
 
-    console.log('here is the part id to update: ', this.partToEditId);
-
     //  Register Part
     this.authService.registerPart(part).subscribe(data => {
       console.log(data);
       if(data.success){
         this.flashMessage.show('Your part has been listed!', {cssClass: 'alert-success', timeout: 3000});
-        this.router.navigate(['/dashboard']);
       } else {
         this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-        this.router.navigate(['/dashboard']);
       }
     });
+    location.reload();
   }
 
   // Capture of part information at "EDIT" button
   partEdit(part: any){
-    // console.log(part);
- 
     this.vehicleToEdit = part.vehicle;
     this.partDescriptionToEdit = part.partDescription;
     this.forSaleToEdit = part.forSale;
     this.forTradeToEdit = part.forTrade;
     this.partToEditId = part._id;
-
-    this.showEdit = false;
     
+    this.showEdit = true;
   };
 
   onPartEdit(){
@@ -90,27 +101,52 @@ export class DashboardComponent implements OnInit {
       forTrade: this.forTradeToEdit,
       forSale: this.forSaleToEdit
     };
-    // console.log(upDatedPart);
 
     this.authService.editPart(upDatedPart).subscribe(data => {
-      
-      console.log(upDatedPart);
+      console.log(data);
       if(data.success){
         this.flashMessage.show('Your part has been updated!', {cssClass: 'alert-success', timeout: 3000});
+        this.showEditForm();
         this.router.navigate(['/dashboard']);
       } else {
         this.flashMessage.show('Something went wrong', {cssClass: 'alert-danger', timeout: 3000});
-        this.router.navigate(['/dashboard']);
       }
+      location.reload();
     });
   }
 
-  changeShowStatus(){
-    this.showHide = !this.showHide;
-  };
+  partDelete(part: any){
+    this.idToDelete = part._id;
+    this.vehicleToDelete = part.vehicle;
+    this.partDescriptionToDelete = part.partDescription;
+    this.forTradeToDelete = part.forTrade;
+    this.forSaleToDelete = part.forSale;
+    console.log(this.idToDelete);
+    this.showDeleteConfirmation = true;
+  }
 
-  showEditForm(){
-    this.showEdit = !this.showEdit;
-  };
+  onPartDelete(){
+    const partToDelete ={
+      _id: this.idToDelete,
+      vehicle: this.vehicleToDelete,
+      partDescription: this.partDescriptionToDelete,
+      forTrade: this.forTradeToDelete,
+      forSale: this.forSaleToDelete
+    };
+
+    this.authService.deletePart(partToDelete).subscribe(data => {
+      console.log(this.idToDelete);
+      if(data.success){
+        this.flashMessage.show('Your part has been deleted', {cssClass: 'alert-success', timeout: 3000});
+        location.reload();
+      } else {
+        this.flashMessage.show('Part was not deleted, somethings wrong', {cssClass: 'alert-danger', timeout: 3000});
+      }
+      
+    });
+  }
+  
+
+ 
 }
 

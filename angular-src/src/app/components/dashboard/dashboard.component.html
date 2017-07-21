@@ -1,25 +1,28 @@
 <h1 class="page-header">Dashboard</h1>
 
-
- <h3>Welcome to your Dashboard.</h3>
 <p>This is where you list the parts you have for sale or trade and also any parts you may be in the market for.</p>
 
  <h1>My Parts</h1>
 <hr>
+<button type="button" class="btn btn-primary" (click)="changeShowStatus()">Add a part</button><br><br>
 
 <ul class="Parts list-group">
   <li *ngFor="let part of parts">
     <span class="badge">{{part.vehicle}}  </span>  {{part.partDescription}}, {{part.forTrade}}, Price: ${{part.forSale}}, {{part._id}}
     <span class="pull-right">
       <button id="editBtn" type="button" class="btn btn-xs btn-default" (click)="partEdit(part)">Edit</button>
-      <button type="button" class="btn btn-xs btn-default" >Del</button>
+      <button type="button" class="btn btn-xs btn-default" (click)="partDelete(part)">Del</button>
     </span>
   </li>
-</ul>
+</ul><br><br>
+
+<div *ngIf="showDeleteConfirmation">
+  <button type="button" class="btn btn-primary" (click)="onPartDelete()">Confirm Delete</button>
+</div>
 
   <!--ADD NEW PART DIV  -->
-<button type="button" class="btn btn-primary" (click)="changeShowStatus()">Add a part</button>
-<div [hidden]="showHide">
+
+<div *ngIf="showHide">
   <h3>Add your part</h3>
   <form (submit)="onPartSubmit()">
     <div class="form-group">
@@ -44,7 +47,7 @@
 
 
  <!--EDIT YOUR PART DIV  -->
-<div [hidden]="showEdit">
+<div *ngIf="showEdit">
   <h3>Edit Your Part</h3>
   <form (submit)="onPartEdit()">
     <div class="form-group">

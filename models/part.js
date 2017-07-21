@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 
 
-// Car Part Schema
+// PART SCHEMA
 const PartSchema = mongoose.Schema({
     vehicle: {
         type: String
@@ -21,6 +21,23 @@ const PartSchema = mongoose.Schema({
 });
 
 const Part = module.exports = mongoose.model('Part', PartSchema);
+
+//SEED DATABASE
+Part.count({}, function(err, count) {
+  if (err) {
+    throw err;
+  }
+
+  if (count > 0) return ;
+
+  const parts = require('./file.seed.json');
+  Part.create(parts, function(err, newParts) {
+    if (err) {
+      throw err;
+    }
+    console.log("DB seeded")
+  });
+});
 
 module.exports.getPartById = function(id, callback) {
     Part.findById(id, callback);

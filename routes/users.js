@@ -6,6 +6,7 @@ const config = require('../config/database');
 const User = require('../models/user');
 const Part = require('../models/part');
 
+
 // Register New User
 router.post('/register', (req, res, next) => {
     let newUser = new User({
@@ -46,38 +47,30 @@ router.post('/dashboard', (req, res, next) => {
 router.put('/dashboard/:id', function(req, res){
     let id = req.params.id;
     let part = req.body;
-    console.log(id);
-    console.log(part);
     
-    if(part && part._id !== id) {
+    if(part._id !== id) {
         return res.status(500).json({err: "Ids don't match!"})
     }
     
-
     Part.findByIdAndUpdate(id, part, {new: true}, function(err, part){
         if(err) {
             return res.status(500).json({err: err.message});
         }
-        res.json({'part': part, message: 'Part updated!'});
+        res.json({success: true, message: 'Part updated!'});
     })
 });
 
-// Deleting a Part
+// DELETE A PART
 router.delete('/dashboard/:id', function(req, res){
     let id = req.params.id;
     let part = req.body;
 
-    if(err) { 
-        return res.status(500).json({err: err.message});
-    }
-    Part.findOneAndRemove(id, function(err, part){
+    Part.findByIdAndRemove(id, function(err, part){
         if(err) {
             return res.status(500).json({err: err.message});           
         }
-        res.json({'part': part, message: 'Part deleted!'});
-        res.this.router.navigate(['dashboard']);
-    })
-        
+        res.json({success: true, message: 'Part deleted!'});
+    })     
 });
 
 

@@ -51,10 +51,19 @@ export class AuthService {
   editPart(part){
     let id = part._id;
     let headers = new Headers();
-    console.log(id);
     headers.append('Content-Type', 'application/json');
     let url = 'http://localhost:3000/users/dashboard/'+id;
-    return this.http.put(url, {headers: headers})
+    return this.http.put(url, part, {headers: headers})
+      .map(res => res.json());
+  }
+
+  deletePart(part){
+    let id = part._id;
+    console.log(id);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    let url = 'http://localhost:3000/users/dashboard/'+id;
+    return this.http.delete(url, {headers: headers})
       .map(res => res.json());
   }
 
