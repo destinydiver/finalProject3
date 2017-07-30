@@ -7,15 +7,25 @@
 <hr>
 <button type="button" class="btn btn-primary" (click)="changeShowStatus()">Add a part</button><br><br>
 
-<ul class="Parts list-group">
-  <li *ngFor="let part of parts">
-    <span class="badge">{{part.vehicle}}  </span>  {{ part.partDescription }}, {{ part.forTrade }}, Price: ${{ part.forSale }}
-    <span class="pull-right">
-      <button id="editBtn" type="button" class="btn btn-xs btn-default" (click)="partEdit(part)">Edit</button>
-      <button type="button" class="btn btn-xs btn-default" (click)="partDelete(part)">Del</button>
-    </span>
-  </li>
-</ul><br><br>
+<div class="container">
+  <table class="table table-hover">
+    <tr>
+      <th><h3>Vehicle</h3></th>
+      <th><h3>Part</h3></th>
+      <th><h3>Price</h3></th>
+      <th><h3>Trade?</h3></th>
+    </tr>
+    <br>
+    <tr *ngFor="let part of parts">
+      <td><h5>{{part.vehicle}}</h5></td>
+      <td><h5>{{part.partDescription}}</h5></td>
+      <td><h5>${{part.forSale}}</h5></td>
+      <td><h5>{{part.forTrade}}</h5></td>
+      <td><button id="editBtn" type="button" class="btn btn-xs btn-default" (click)="partEdit(part)">Edit</button></td>
+      <td><button type="button" class="btn btn-xs btn-default" (click)="partDelete(part)">Del</button></td>
+    </tr>
+  </table>
+</div>
 
 <div *ngIf="showDeleteConfirmation">
   <button type="button" class="btn btn-primary" (click)="onPartDelete()">Confirm Delete</button>
